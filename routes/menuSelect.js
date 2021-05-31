@@ -1,4 +1,5 @@
 const express = require('express');
+const {Op} = require('sequelize');
 
 const Menu = require('../models/menu');
 const Order = require('../models/orderSheet');
@@ -11,6 +12,7 @@ router
     try {
       const result = await Menu.findAll({
         attributes: ['menu_no', 'menu_name', 'menu_price', 'menu_stock'],
+        where: {menu_stock: {[Op.gt]: 0}},
       });
       res.json(result);
     } catch (err) {
