@@ -1,6 +1,6 @@
 const express = require('express');
 
-const Table = require('../models/table');
+const Table = require('../schemas/table');
 
 const router = express.Router();
 
@@ -8,7 +8,7 @@ router
   .route('/')
   .get(async (req, res, next) => {
     try {
-      const result = await Table.findAll({});
+      const result = await Table.find({});
       res.json(result);
     } catch (err) {
       console.error(err);
@@ -29,7 +29,7 @@ router
   })
   .delete(async (req, res, next) => {
     try {
-      const result = await Table.destroy({truncate: true});
+      const result = await Table.remove({});
       res.json(result);
     } catch (err) {
       console.error(err);

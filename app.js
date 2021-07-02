@@ -6,7 +6,7 @@ const dotenv = require('dotenv');
 
 dotenv.config();
 
-const {sequelize} = require('./models');
+const connect = require('./schemas');
 
 const main = require('./routes/main');
 const menuManagement = require('./routes/menuManagement');
@@ -16,14 +16,7 @@ const dailySales = require('./routes/dailySales');
 
 const app = express();
 app.set('port', process.env.PORT || 3050);
-sequelize
-  .sync({force: false})
-  .then(() => {
-    console.log('Database Connected!');
-  })
-  .catch((err) => {
-    console.error(err);
-  });
+connect();
 
 if (process.env.NODE_ENV === 'production') {
   app.use(morgan('combined'));

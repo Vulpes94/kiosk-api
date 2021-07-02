@@ -1,6 +1,6 @@
 const express = require('express');
 
-const Sales = require('../models/dailySales');
+const Sales = require('../schemas/dailySales');
 
 const router = express.Router();
 
@@ -8,16 +8,7 @@ router
   .route('/')
   .get(async (req, res, next) => {
     try {
-      const result = await Sales.findAll({
-        attributes: [
-          'sales_no',
-          'menu_no',
-          'menu_name',
-          'sales_quantity',
-          'menu_price',
-          'total_price',
-        ],
-      });
+      const result = await Sales.find({});
       res.json(result);
     } catch (err) {
       console.error(err);
@@ -26,7 +17,7 @@ router
   })
   .delete(async (req, res, next) => {
     try {
-      const result = await Sales.destroy({truncate: true});
+      const result = await Sales.remove();
       res.json(result);
     } catch (err) {
       console.error(err);

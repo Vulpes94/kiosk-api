@@ -1,6 +1,6 @@
 const express = require('express');
 
-const Menu = require('../models/menu');
+const Menu = require('../schemas/menu');
 
 const router = express.Router();
 
@@ -8,9 +8,7 @@ router
   .route('/')
   .get(async (req, res, next) => {
     try {
-      const result = await Menu.findAll({
-        attributes: ['menu_no', 'menu_name', 'menu_price', 'menu_stock'],
-      });
+      const result = await Menu.find({});
       res.json(result);
     } catch (err) {
       console.error(err);
@@ -32,10 +30,7 @@ router
   })
   .patch(async (req, res, next) => {
     try {
-      const result = await Menu.update(
-        {menu_stock: req.body.menu_stock},
-        {where: {menu_no: req.body.menu_no}}
-      );
+      const result = await Menu.updateOne({_id: req.body._id}, {menu_stock: req.body.menu_stock});
       res.json(result);
     } catch (err) {
       console.error(err);
@@ -44,7 +39,7 @@ router
   })
   .delete(async (req, res, next) => {
     try {
-      const result = await Menu.destroy({where: {menu_no: req.body.menu_no}});
+      const result = await Menu.remove({_id: req.body._id});
       res.json(result);
     } catch (err) {
       console.error(err);

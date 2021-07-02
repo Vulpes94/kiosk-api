@@ -1,8 +1,7 @@
 const express = require('express');
-const {Op} = require('sequelize');
 
-const Menu = require('../models/menu');
-const Order = require('../models/orderSheet');
+const Menu = require('../schemas/menu');
+const Order = require('../schemas/orderSheet');
 
 const router = express.Router();
 
@@ -10,9 +9,8 @@ router
   .route('/:table_no')
   .get(async (req, res, next) => {
     try {
-      const result = await Menu.findAll({
-        attributes: ['menu_no', 'menu_name', 'menu_price', 'menu_stock'],
-        where: {menu_stock: {[Op.gt]: 0}},
+      const result = await Menu.find({
+        menu_stock: {$gt: 0},
       });
       res.json(result);
     } catch (err) {
@@ -24,7 +22,6 @@ router
     try {
       const result = await Order.create({
         table_no: req.params.table_no,
-        menu_no: req.body.menu_no,
         menu_name: req.body.menu_name,
         menu_price: req.body.menu_price,
         order_quantity: req.body.order_quantity,
@@ -37,9 +34,9 @@ router
   })
   .patch(async (req, res, next) => {
     try {
-      const result = await Order.update(
-        {order_quantity: req.body.order_quantity},
-        {where: {table_no: req.params.table_no, menu_no: req.body.menu_no}}
+      const result = await Order.updateOne(
+        {table_no: req.params.table_no, menu_name: req.body.menu_name},
+        {order_quantity: req.body.order_quantity}
       );
       res.json(result);
     } catch (err) {
