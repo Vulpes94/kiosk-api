@@ -8,11 +8,12 @@ dotenv.config();
 
 const connect = require('./schemas');
 
-const main = require('./routes/main');
-const menuManagement = require('./routes/menuManagement');
-const menuSelect = require('./routes/menuSelect');
-const orderSheet = require('./routes/orderSheet');
-const dailySales = require('./routes/dailySales');
+const tableMgnt = require('./routes/table-mgnt');
+const menuMgnt = require('./routes/menu-mgnt');
+const menuSlct = require('./routes/menu-slct');
+const wishList = require('./routes/wishlist');
+const orderSheet = require('./routes/ordersheet');
+const dailySales = require('./routes/dailysales');
 
 const app = express();
 app.set('port', process.env.PORT || 3050);
@@ -29,11 +30,12 @@ if (process.env.NODE_ENV === 'production') {
 app.use(express.json());
 app.use(express.urlencoded({extended: false}));
 
-app.use('/api', main);
-app.use('/api/MenuManagement', menuManagement);
-app.use('/api/MenuSelect', menuSelect);
-app.use('/api/OrderSheet', orderSheet);
-app.use('/api/DailySalesStatus', dailySales);
+app.use('/table-mgnt', tableMgnt);
+app.use('/menu-mgnt', menuMgnt);
+app.use('/menu-slct', menuSlct);
+app.use('/wishlist', wishList);
+app.use('/ordersheet', orderSheet);
+app.use('/dailysales', dailySales);
 
 app.use((req, res, next) => {
   const error = new Error(`Page is not found :(`);
@@ -49,5 +51,5 @@ app.use((err, req, res, next) => {
 
 app.listen(app.get('port'), () => {
   console.log('Waiting at Port', app.get('port'));
-  console.log('http://localhost:3050/api');
+  console.log('http://localhost:3050');
 });
