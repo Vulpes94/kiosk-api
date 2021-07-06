@@ -18,7 +18,7 @@ const wishList = new Schema(
       type: Number,
       required: true,
     },
-    order_quantity: {
+    wish_quantity: {
       type: Number,
       required: true,
     },
