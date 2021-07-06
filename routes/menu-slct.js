@@ -5,7 +5,7 @@ const Menu = require('../schemas/menu_slct');
 const router = express.Router();
 
 router
-  .route('/:table-no')
+  .route('/')
   .get(async (req, res, next) => {
     try {
       const result = await Menu.find({
@@ -32,10 +32,19 @@ router
   })
   .patch(async (req, res, next) => {
     try {
-      const result = await Order.updateOne(
+      const result = await Menu.updateOne(
         {menu_name: req.body.menu_name},
-        {menu_stock: req.body.menu_stock}
+        {$set: {menu_stock: req.body.menu_stock}}
       );
+      res.json(result);
+    } catch (err) {
+      console.error(err);
+      next(err);
+    }
+  })
+  .delete(async (req, res, next) => {
+    try {
+      const result = await Menu.deleteOne({menu_name: req.body.menu_name});
       res.json(result);
     } catch (err) {
       console.error(err);

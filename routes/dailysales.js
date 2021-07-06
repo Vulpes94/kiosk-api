@@ -19,9 +19,9 @@ router
     try {
       const result = await Sales.create({
         menu_name: req.body.menu_name,
-        sales_quantity: req.body.order_quantity,
+        sales_quantity: req.body.sales_quantity,
         menu_price: req.body.menu_price,
-        total_price: req.body.order_quantity * req.body.menu_price,
+        total_price: req.body.total_price,
       });
       res.status(201).json(result);
     } catch (err) {
@@ -46,7 +46,7 @@ router
   })
   .delete(async (req, res, next) => {
     try {
-      const result = await Sales.remove();
+      const result = await Sales.deleteMany();
       res.json(result);
     } catch (err) {
       console.error(err);

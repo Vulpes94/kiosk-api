@@ -5,11 +5,11 @@ const Wish = require('../schemas/wishlist');
 const router = express.Router();
 
 router
-  .route('/:table_no')
+  .route('/:table')
   .get(async (req, res, next) => {
     try {
       const result = await Wish.find({
-        table_no: req.params.table_no,
+        table_no: req.params.table,
       });
       res.json(result);
     } catch (err) {
@@ -20,10 +20,10 @@ router
   .post(async (req, res, next) => {
     try {
       const result = await Wish.create({
-        table_no: req.params.table_no,
+        table_no: req.params.table,
         menu_name: req.body.menu_name,
         menu_price: req.body.menu_price,
-        order_quantity: req.body.order_quantity,
+        wish_quantity: 1,
       });
       res.status(201).json(result);
     } catch (err) {
@@ -34,8 +34,8 @@ router
   .patch(async (req, res, next) => {
     try {
       const result = await Wish.updateOne(
-        {table_no: req.params.table_no, menu_name: req.body.menu_name},
-        {order_quantity: req.body.order_quantity}
+        {table_no: req.params.table, menu_name: req.body.menu_name},
+        {$set: {wish_quantity: req.body.wish_quantity}}
       );
       res.json(result);
     } catch (err) {
@@ -45,17 +45,8 @@ router
   })
   .delete(async (req, res, next) => {
     try {
-      const result = await Wish.remove({table_no: req.params.table_no});
-      res.json(result);
-    } catch (err) {
-      console.error(err);
-      next(err);
-    }
-  })
-  .delete(async (req, res, next) => {
-    try {
-      const result = await Wish.remove({
-        table_no: req.params.table_no,
+      const result = await Wish.deleteOne({
+        table_no: req.params.table,
         menu_name: req.body.menu_name,
       });
       res.json(result);
@@ -64,5 +55,15 @@ router
       next(err);
     }
   });
+
+router.delete('/reset/:table', async (req, res, next) => {
+  try {
+    const result = await Wish.deleteMany({table_no: req.params.table});
+    res.json(result);
+  } catch (err) {
+    console.error(err);
+    next(err);
+  }
+});
 
 module.exports = router;
