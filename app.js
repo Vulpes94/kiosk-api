@@ -30,12 +30,12 @@ if (process.env.NODE_ENV === 'production') {
 app.use(express.json());
 app.use(express.urlencoded({extended: false}));
 
-app.use('/table-mgnt', tableMgnt);
-app.use('/menu-mgnt', menuMgnt);
-app.use('/menu-slct', menuSlct);
-app.use('/wishlist', wishList);
-app.use('/ordersheet', orderSheet);
-app.use('/dailysales', dailySales);
+app.use('/api/table-mgnt', tableMgnt);
+app.use('/api/menu-mgnt', menuMgnt);
+app.use('/api/menu-slct', menuSlct);
+app.use('/api/wishlist', wishList);
+app.use('/api/ordersheet', orderSheet);
+app.use('/api/dailysales', dailySales);
 
 app.use((req, res, next) => {
   const error = new Error(`Page is not found :(`);
@@ -51,5 +51,5 @@ app.use((err, req, res, next) => {
 
 app.listen(app.get('port'), () => {
   console.log('Waiting at Port', app.get('port'));
-  console.log('http://localhost:3050');
+  console.log('http://localhost:3050/api');
 });
