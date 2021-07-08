@@ -1,12 +1,14 @@
 const mongoose = require('mongoose');
+const dotenv = require('dotenv');
 
-const MONGO_URL = `mongodb://root:qwerty@localhost:27017/admin`;
+dotenv.config();
+
 const connect = () => {
   if (process.env.NODE_ENV !== 'production') {
     mongoose.set('debug', true);
   }
   mongoose.connect(
-    MONGO_URL,
+    process.env.MONGO_URL,
     {
       dbName: 'kible',
       useUnifiedTopology: true,
