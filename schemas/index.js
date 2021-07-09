@@ -3,6 +3,8 @@ const dotenv = require('dotenv');
 
 dotenv.config();
 
+const winston = require('../configs/winston');
+
 const connect = () => {
   if (process.env.NODE_ENV !== 'production') {
     mongoose.set('debug', true);
@@ -17,9 +19,9 @@ const connect = () => {
     },
     (error) => {
       if (error) {
-        console.log('Database Connection Error...', error);
+        winston.error(error);
       } else {
-        console.log('Database Connected!');
+        winston.info('Database Connected!');
         mongoose.set('autoCreate', true);
       }
     }
@@ -27,11 +29,11 @@ const connect = () => {
 };
 
 mongoose.connection.on('error', (error) => {
-  console.error('Database Connection Error...', error);
+  winston.error(error);
 });
 
 mongoose.connection.on('disconnected', () => {
-  console.error('Database Disconnected, Trying to connect again...');
+  winston.error('Database Disconnected, Trying to connect again...');
   connect();
 });
 
