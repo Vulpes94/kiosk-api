@@ -12,7 +12,7 @@ const winston = createLogger({
     }))
   ),
   transports: [
-    new transports.File({filename: './logs/combined.log', level: 'info'}),
+    new transports.File({filename: './logs/access.log', level: 'info'}),
     new transports.File({filename: './logs/errors.log', level: 'error'}),
   ],
 });
