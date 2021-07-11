@@ -3,7 +3,7 @@ const dotenv = require('dotenv');
 
 dotenv.config();
 
-const winston = require('../configs/winston');
+const winston = require('../modules/winston');
 
 const connect = () => {
   if (process.env.NODE_ENV !== 'production') {
