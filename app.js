@@ -7,7 +7,7 @@ const dotenv = require('dotenv');
 dotenv.config();
 
 const connect = require('./schemas');
-const winston = require('./configs/winston');
+const winston = require('./modules/winston');
 
 const tableMgnt = require('./routes/table-mgnt');
 const menuMgnt = require('./routes/menu-mgnt');
