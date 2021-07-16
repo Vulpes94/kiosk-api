@@ -61,5 +61,5 @@ app.use((err, req, res, next) => {
 });
 
 app.listen(app.get('port'), () => {
-  winston.info(`Waiting at Port ${app.get('port')}`);
+  winston.info(`Listening on Port ${app.get('port')}`);
 });
