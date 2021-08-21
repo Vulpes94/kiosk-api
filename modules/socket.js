@@ -1,4 +1,5 @@
 const SocketIO = require('socket.io');
+const winston = require('./winston');
 const axios = require('axios');
 
 module.exports = (server, app) => {
@@ -11,9 +12,9 @@ module.exports = (server, app) => {
   const dailySales = io.of('/api/dailysales');
 
   menuMgnt.on('connection', (socket) => {
-    console.log('Connected on /api/menu-mgnt');
+    winston.info('Connected on /api/menu-mgnt');
     socket.on('disconnect', () => {
-      console.log('Disconnect /api/menu-mgnt');
+      winston.info('Disconnect /api/menu-mgnt');
     });
     socket.on('GET /api/menu-mgnt Request', async () => {
       const result = await axios.get('http://localhost:3050/api/menu-mgnt');
@@ -22,9 +23,9 @@ module.exports = (server, app) => {
   });
 
   menuSlct.on('connection', (socket) => {
-    console.log('Connected on /api/menu-slct');
+    winston.info('Connected on /api/menu-slct');
     socket.on('disconnect', () => {
-      console.log('Disconnect /api/menu-slct');
+      winston.info('Disconnect /api/menu-slct');
     });
     socket.on('GET /api/menu-slct Request', async () => {
       const result = await axios.get('http://localhost:3050/api/menu-slct');
@@ -33,9 +34,9 @@ module.exports = (server, app) => {
   });
 
   wishList.on('connection', (socket) => {
-    console.log('Connected on /api/wishlist');
+    winston.info('Connected on /api/wishlist');
     socket.on('disconnect', () => {
-      console.log('Disconnect /api/wishlist');
+      winston.info('Disconnect /api/wishlist');
     });
     socket.on('GET /api/wishlist Request', async (table) => {
       const result = await axios.get(`http://localhost:3050/api/wishlist/${table}`);
@@ -44,9 +45,9 @@ module.exports = (server, app) => {
   });
 
   orderSheet.on('connection', (socket) => {
-    console.log('Connected on /api/ordersheet');
+    winston.info('Connected on /api/ordersheet');
     socket.on('disconnect', () => {
-      console.log('Disconnect /api/ordersheet');
+      winston.info('Disconnect /api/ordersheet');
     });
     socket.on('GET /api/ordersheet Request', async (table) => {
       const result = await axios.get(`http://localhost:3050/api/ordersheet/${table}`);
@@ -55,9 +56,9 @@ module.exports = (server, app) => {
   });
 
   dailySales.on('connection', (socket) => {
-    console.log('Connected on /api/dailysales');
+    winston.info('Connected on /api/dailysales');
     socket.on('disconnect', () => {
-      console.log('Disconnect /api/dailysales');
+      winston.info('Disconnect /api/dailysales');
     });
     socket.on('GET /api/dailysales Request', async () => {
       const result = await axios.get('http://localhost:3050/api/dailysales');
