@@ -8,6 +8,7 @@ dotenv.config();
 
 const connect = require('./schemas');
 const winston = require('./modules/winston');
+const webSocket = require('./modules/socket');
 
 const tableMgnt = require('./routes/table-mgnt');
 const menuMgnt = require('./routes/menu-mgnt');
@@ -60,6 +61,8 @@ app.use((err, req, res, next) => {
   winston.error(err.stack);
 });
 
-app.listen(app.get('port'), () => {
+const server = app.listen(app.get('port'), () => {
   winston.info(`Listening on Port ${app.get('port')}`);
 });
+
+webSocket(server, app);
