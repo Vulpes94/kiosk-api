@@ -11,6 +11,11 @@ router
       const result = await Order.find({
         table_no: req.params.table,
       });
+      const io = req.app.get('io');
+      io.of('/api/ordersheet').emit('GET /api/ordersheet Success', {
+        table: req.params.table,
+        data: result,
+      });
       res.json(result);
     } catch (err) {
       console.error(err);

@@ -9,6 +9,8 @@ router
   .get(async (req, res, next) => {
     try {
       const result = await Menu.find({});
+      const io = req.app.get('io');
+      io.of('/api/menu-mgnt').emit('GET /api/menu-mgnt Success', result);
       res.json(result);
     } catch (err) {
       console.error(err);

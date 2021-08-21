@@ -11,6 +11,8 @@ router
       const result = await Menu.find({
         menu_stock: {$gt: 0},
       });
+      const io = req.app.get('io');
+      io.of('/api/menu-slct').emit('GET /api/menu-slct Success', result);
       res.json(result);
     } catch (err) {
       console.error(err);

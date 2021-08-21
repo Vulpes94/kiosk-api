@@ -11,6 +11,11 @@ router
       const result = await Wish.find({
         table_no: req.params.table,
       });
+      const io = req.app.get('io');
+      io.of('/api/wishlist').emit('GET /api/wishlist Success', {
+        table: req.params.table,
+        data: result,
+      });
       res.json(result);
     } catch (err) {
       console.error(err);

@@ -9,6 +9,8 @@ router
   .get(async (req, res, next) => {
     try {
       const result = await Sales.find({});
+      const io = req.app.get('io');
+      io.of('/api/dailysales').emit('GET /api/dailysales Success', result);
       res.json(result);
     } catch (err) {
       console.error(err);
