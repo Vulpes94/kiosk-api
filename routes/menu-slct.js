@@ -8,9 +8,7 @@ router
   .route('/')
   .get(async (req, res, next) => {
     try {
-      const result = await Menu.find({
-        menu_stock: {$gt: 0},
-      });
+      const result = await Menu.find({});
       const io = req.app.get('io');
       io.of('/api/menu-slct').emit('GET /api/menu-slct Success', result);
       res.json(result);
