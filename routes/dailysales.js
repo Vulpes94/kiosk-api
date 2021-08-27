@@ -34,11 +34,11 @@ router
   .patch(async (req, res, next) => {
     try {
       const result = await Sales.updateOne(
-        {menu_name: req.body.menu_name},
+        { menu_name: req.body.menu_name },
         {
           sales_quantity: req.body.sales_quantity,
           total_price: req.body.total_price,
-        }
+        },
       );
       res.json(result);
     } catch (err) {

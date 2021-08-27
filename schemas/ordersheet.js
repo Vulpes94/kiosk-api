@@ -1,6 +1,6 @@
 const mongoose = require('mongoose');
 
-const {Schema} = mongoose;
+const { Schema } = mongoose;
 
 const orderSheet = new Schema(
   {
@@ -25,7 +25,7 @@ const orderSheet = new Schema(
   },
   {
     versionKey: false,
-  }
+  },
 );
 
 module.exports = mongoose.model('ordersheet', orderSheet);

@@ -39,8 +39,8 @@ router
   .patch(async (req, res, next) => {
     try {
       const result = await Wish.updateOne(
-        {table_no: req.params.table, menu_name: req.body.menu_name},
-        {$set: {wish_quantity: req.body.wish_quantity}}
+        { table_no: req.params.table, menu_name: req.body.menu_name },
+        { $set: { wish_quantity: req.body.wish_quantity } },
       );
       res.json(result);
     } catch (err) {
@@ -63,7 +63,7 @@ router
 
 router.delete('/reset/:table', async (req, res, next) => {
   try {
-    const result = await Wish.deleteMany({table_no: req.params.table});
+    const result = await Wish.deleteMany({ table_no: req.params.table });
     res.json(result);
   } catch (err) {
     console.error(err);

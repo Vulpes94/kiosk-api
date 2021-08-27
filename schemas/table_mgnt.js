@@ -1,6 +1,6 @@
 const mongoose = require('mongoose');
 
-const {Schema} = mongoose;
+const { Schema } = mongoose;
 
 const tableMgnt = new Schema(
   {
@@ -17,7 +17,7 @@ const tableMgnt = new Schema(
   },
   {
     versionKey: false,
-  }
+  },
 );
 
 module.exports = mongoose.model('table_mgnt', tableMgnt);

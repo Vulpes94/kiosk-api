@@ -1,6 +1,6 @@
 const mongoose = require('mongoose');
 
-const {Schema} = mongoose;
+const { Schema } = mongoose;
 
 const menuSlct = new Schema(
   {
@@ -21,7 +21,7 @@ const menuSlct = new Schema(
   },
   {
     versionKey: false,
-  }
+  },
 );
 
 module.exports = mongoose.model('menu_slct', menuSlct);

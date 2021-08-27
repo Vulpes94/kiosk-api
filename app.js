@@ -26,19 +26,19 @@ const combined =
 const dev = ':method :url :status :response-time ms - :res[content-length]';
 
 if (process.env.NODE_ENV === 'production') {
-  app.use(morgan(combined, {stream: winston.stream}));
+  app.use(morgan(combined, { stream: winston.stream }));
   app.use(helmet());
   app.use(hpp());
 } else {
   app.use(
     morgan(dev, {
       stream: winston.stream,
-    })
+    }),
   );
 }
 
 app.use(express.json());
-app.use(express.urlencoded({extended: false}));
+app.use(express.urlencoded({ extended: false }));
 
 app.use('/api/table-mgnt', tableMgnt);
 app.use('/api/menu-mgnt', menuMgnt);

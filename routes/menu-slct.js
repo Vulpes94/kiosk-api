@@ -33,8 +33,8 @@ router
   .patch(async (req, res, next) => {
     try {
       const result = await Menu.updateOne(
-        {menu_name: req.body.menu_name},
-        {$set: {menu_stock: req.body.menu_stock}}
+        { menu_name: req.body.menu_name },
+        { $set: { menu_stock: req.body.menu_stock } },
       );
       res.json(result);
     } catch (err) {
@@ -44,7 +44,7 @@ router
   })
   .delete(async (req, res, next) => {
     try {
-      const result = await Menu.deleteOne({menu_name: req.body.menu_name});
+      const result = await Menu.deleteOne({ menu_name: req.body.menu_name });
       res.json(result);
     } catch (err) {
       console.error(err);

@@ -1,6 +1,6 @@
 const mongoose = require('mongoose');
 
-const {Schema} = mongoose;
+const { Schema } = mongoose;
 
 const menuMgnt = new Schema(
   {
@@ -20,7 +20,7 @@ const menuMgnt = new Schema(
   },
   {
     versionKey: false,
-  }
+  },
 );
 
 module.exports = mongoose.model('menu_mgnt', menuMgnt);

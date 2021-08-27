@@ -39,8 +39,8 @@ router
   .patch(async (req, res, next) => {
     try {
       const result = await Order.updateOne(
-        {table_no: req.params.table, menu_name: req.body.menu_name},
-        {order_quantity: req.body.order_quantity}
+        { table_no: req.params.table, menu_name: req.body.menu_name },
+        { order_quantity: req.body.order_quantity },
       );
       res.json(result);
     } catch (err) {
@@ -50,7 +50,7 @@ router
   })
   .delete(async (req, res, next) => {
     try {
-      const result = await Order.remove({table_no: req.params.table});
+      const result = await Order.remove({ table_no: req.params.table });
       res.json(result);
     } catch (err) {
       console.error(err);

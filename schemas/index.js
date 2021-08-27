@@ -24,7 +24,7 @@ const connect = () => {
         winston.info('Database Connected!');
         mongoose.set('autoCreate', true);
       }
-    }
+    },
   );
 };
 

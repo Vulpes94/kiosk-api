@@ -3,7 +3,7 @@ const winston = require('./winston');
 const axios = require('axios');
 
 module.exports = (server, app) => {
-  const io = SocketIO(server, {path: '/socket'});
+  const io = SocketIO(server, { path: '/socket' });
   app.set('io', io);
   const menuMgnt = io.of('/api/menu-mgnt');
   const menuSlct = io.of('/api/menu-slct');
@@ -40,7 +40,7 @@ module.exports = (server, app) => {
     });
     socket.on('GET /api/wishlist Request', async (table) => {
       const result = await axios.get(`http://localhost:3050/api/wishlist/${table}`);
-      socket.emit('GET /api/wishlist Success', {table: table, data: result.data});
+      socket.emit('GET /api/wishlist Success', { table: table, data: result.data });
     });
   });
 
@@ -51,7 +51,7 @@ module.exports = (server, app) => {
     });
     socket.on('GET /api/ordersheet Request', async (table) => {
       const result = await axios.get(`http://localhost:3050/api/ordersheet/${table}`);
-      socket.emit('GET /api/ordersheet Success', {table: table, data: result.data});
+      socket.emit('GET /api/ordersheet Success', { table: table, data: result.data });
     });
   });
 
