@@ -1,9 +1,9 @@
-const SocketIO = require('socket.io');
-const winston = require('./winston');
-const axios = require('axios');
+import { Server, Socket } from 'socket.io';
+import logger from './winston';
+import axios from 'axios';
 
-module.exports = (server, app) => {
-  const io = SocketIO(server, { path: '/socket' });
+const webSocket = (server: any, app: any) => {
+  const io = new Server(server, { path: '/socket' });
   app.set('io', io);
   const menuMgnt = io.of('/api/menu-mgnt');
   const menuSlct = io.of('/api/menu-slct');
@@ -11,10 +11,10 @@ module.exports = (server, app) => {
   const orderSheet = io.of('/api/ordersheet');
   const dailySales = io.of('/api/dailysales');
 
-  menuMgnt.on('connection', (socket) => {
-    winston.info('Connected on /api/menu-mgnt');
+  menuMgnt.on('connection', (socket: Socket) => {
+    logger.info('Connected on /api/menu-mgnt');
     socket.on('disconnect', () => {
-      winston.info('Disconnect /api/menu-mgnt');
+      logger.info('Disconnect /api/menu-mgnt');
     });
     socket.on('GET /api/menu-mgnt Request', async () => {
       const result = await axios.get('http://localhost:3050/api/menu-mgnt');
@@ -22,10 +22,10 @@ module.exports = (server, app) => {
     });
   });
 
-  menuSlct.on('connection', (socket) => {
-    winston.info('Connected on /api/menu-slct');
+  menuSlct.on('connection', (socket: Socket) => {
+    logger.info('Connected on /api/menu-slct');
     socket.on('disconnect', () => {
-      winston.info('Disconnect /api/menu-slct');
+      logger.info('Disconnect /api/menu-slct');
     });
     socket.on('GET /api/menu-slct Request', async () => {
       const result = await axios.get('http://localhost:3050/api/menu-slct');
@@ -33,10 +33,10 @@ module.exports = (server, app) => {
     });
   });
 
-  wishList.on('connection', (socket) => {
-    winston.info('Connected on /api/wishlist');
+  wishList.on('connection', (socket: Socket) => {
+    logger.info('Connected on /api/wishlist');
     socket.on('disconnect', () => {
-      winston.info('Disconnect /api/wishlist');
+      logger.info('Disconnect /api/wishlist');
     });
     socket.on('GET /api/wishlist Request', async (table) => {
       const result = await axios.get(`http://localhost:3050/api/wishlist/${table}`);
@@ -44,10 +44,10 @@ module.exports = (server, app) => {
     });
   });
 
-  orderSheet.on('connection', (socket) => {
-    winston.info('Connected on /api/ordersheet');
+  orderSheet.on('connection', (socket: Socket) => {
+    logger.info('Connected on /api/ordersheet');
     socket.on('disconnect', () => {
-      winston.info('Disconnect /api/ordersheet');
+      logger.info('Disconnect /api/ordersheet');
     });
     socket.on('GET /api/ordersheet Request', async (table) => {
       const result = await axios.get(`http://localhost:3050/api/ordersheet/${table}`);
@@ -55,10 +55,10 @@ module.exports = (server, app) => {
     });
   });
 
-  dailySales.on('connection', (socket) => {
-    winston.info('Connected on /api/dailysales');
+  dailySales.on('connection', (socket: Socket) => {
+    logger.info('Connected on /api/dailysales');
     socket.on('disconnect', () => {
-      winston.info('Disconnect /api/dailysales');
+      logger.info('Disconnect /api/dailysales');
     });
     socket.on('GET /api/dailysales Request', async () => {
       const result = await axios.get('http://localhost:3050/api/dailysales');
@@ -66,3 +66,5 @@ module.exports = (server, app) => {
     });
   });
 };
+
+export default webSocket;
