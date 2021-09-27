@@ -5,22 +5,10 @@ import axios from 'axios';
 const webSocket = (server: any, app: any) => {
   const io = new Server(server, { path: '/socket' });
   app.set('io', io);
-  const menuMgnt = io.of('/api/menu-mgnt');
   const menuSlct = io.of('/api/menu-slct');
   const wishList = io.of('/api/wishlist');
   const orderSheet = io.of('/api/ordersheet');
   const dailySales = io.of('/api/dailysales');
-
-  menuMgnt.on('connection', (socket: Socket) => {
-    logger.info('Connected on /api/menu-mgnt');
-    socket.on('disconnect', () => {
-      logger.info('Disconnect /api/menu-mgnt');
-    });
-    socket.on('GET /api/menu-mgnt Request', async () => {
-      const result = await axios.get('http://localhost:3050/api/menu-mgnt');
-      socket.emit('GET /api/menu-mgnt Success', result.data);
-    });
-  });
 
   menuSlct.on('connection', (socket: Socket) => {
     logger.info('Connected on /api/menu-slct');
@@ -30,6 +18,14 @@ const webSocket = (server: any, app: any) => {
     socket.on('GET /api/menu-slct Request', async () => {
       const result = await axios.get('http://localhost:3050/api/menu-slct');
       socket.emit('GET /api/menu-slct Success', result.data);
+    });
+
+    socket.on('GET /api/menu-mgnt Request', async () => {
+      const result = await axios.get('http://localhost:3050/api/menu-mgnt');
+      socket.emit('GET /api/menu-mgnt Success', result.data);
+
+      const result1 = await axios.get('http://localhost:3050/api/menu-slct');
+      socket.emit('GET /api/menu-slct Success', result1.data);
     });
   });
 
