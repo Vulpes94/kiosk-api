@@ -2,7 +2,7 @@ import { ConnectionOptions } from 'typeorm';
 require('dotenv').config();
 
 const ORMConfig: ConnectionOptions = {
-  type: 'mysql',
+  type: 'mariadb',
   host: 'localhost',
   port: 3306,
   username: process.env.DB_USERNAME,
@@ -10,6 +10,7 @@ const ORMConfig: ConnectionOptions = {
   database: 'kible',
   synchronize: true,
   logging: process.env.NODE_ENV === 'production' ? false : true,
+  timezone: '+09:00',
   entities:
     process.env.NODE_ENV === 'production' ? ['build/entities/**/*.js'] : ['src/entities/**/*.ts'],
   migrations:
