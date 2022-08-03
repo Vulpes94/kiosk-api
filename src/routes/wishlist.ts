@@ -80,7 +80,7 @@ router
   });
 
 // transaction WishList increment
-router.patch('/incr/:table', async (req, res, next) => {
+router.patch('/v2/incr/:table', async (req, res, next) => {
   try {
     const result = await getConnection().transaction(async (manager)=>{
       await manager.increment(WishList, {table_no: parseInt(req.params.table), menu_name: req.body.menu_name},"wish_quantity",1);
@@ -94,7 +94,7 @@ router.patch('/incr/:table', async (req, res, next) => {
 });
 
 // transaction WishList decrement
-router.patch('/decr/:table', async (req, res, next) => {
+router.patch('/v2/decr/:table', async (req, res, next) => {
   try {
     const result = await getConnection().transaction(async (manager)=>{
       await manager.decrement(WishList, {table_no: parseInt(req.params.table), menu_name: req.body.menu_name},"wish_quantity",1);
