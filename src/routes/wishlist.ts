@@ -79,6 +79,34 @@ router
     }
   });
 
+// transaction WishList increment
+router.patch('/incr/:table', async (req, res, next) => {
+  try {
+    const result = await getConnection().transaction(async (manager)=>{
+      await manager.increment(WishList, {table_no: parseInt(req.params.table), menu_name: req.body.menu_name},"wish_quantity",1);
+      await manager.decrement(MenuSlct,{menu_name: req.body.menu_name },"menu_stock",1);
+    });
+    res.json(result);
+  }catch (err) {
+    console.error(err);
+    next(err);
+  }
+});
+
+// transaction WishList decrement
+router.patch('/decr/:table', async (req, res, next) => {
+  try {
+    const result = await getConnection().transaction(async (manager)=>{
+      await manager.decrement(WishList, {table_no: parseInt(req.params.table), menu_name: req.body.menu_name},"wish_quantity",1);
+      await manager.increment(MenuSlct,{menu_name: req.body.menu_name },"menu_stock",1);
+    });
+    res.json(result);
+  }catch (err) {
+    console.error(err);
+    next(err);
+  }
+});
+
 router.delete('/reset/:table', async (req, res, next) => {
   try {
     const result = await getConnection()
