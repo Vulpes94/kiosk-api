@@ -4,6 +4,7 @@ import * as morgan from 'morgan';
 import * as helmet from 'helmet';
 import * as hpp from 'hpp';
 import * as dotenv from 'dotenv';
+import * as cors from 'cors';
 import { Request, Response, NextFunction } from 'express';
 import { createConnection } from 'typeorm';
 
@@ -37,6 +38,7 @@ if (process.env.NODE_ENV === 'production') {
   app.use(morgan(combined, { stream }));
   app.use(helmet());
   app.use(hpp());
+  app.use(cors());
 } else {
   app.use(morgan(dev, { stream }));
 }
